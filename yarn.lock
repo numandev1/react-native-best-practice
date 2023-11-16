@@ -14663,9 +14663,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-best-practices-example@workspace:example":
+"react-native-best-pactices-example@workspace:example":
   version: 0.0.0-use.local
-  resolution: "react-native-best-practices-example@workspace:example"
+  resolution: "react-native-best-pactices-example@workspace:example"
   dependencies:
     "@babel/core": ^7.20.0
     "@expo/webpack-config": ^18.0.1
@@ -14680,9 +14680,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"react-native-best-practices@workspace:.":
+"react-native-best-pactices@workspace:.":
   version: 0.0.0-use.local
-  resolution: "react-native-best-practices@workspace:."
+  resolution: "react-native-best-pactices@workspace:."
   dependencies:
     "@commitlint/config-conventional": ^17.0.2
     "@evilmartians/lefthook": ^1.5.0

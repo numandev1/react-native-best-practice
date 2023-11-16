@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-best-practices';
+import { multiply } from 'react-native-best-pactices';
 
 export default function App() {
   const [result, setResult] = React.useState<number | undefined>();

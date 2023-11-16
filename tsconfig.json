@@ -2,7 +2,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "react-native-best-practices": ["./src/index"]
+      "react-native-best-pactices": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

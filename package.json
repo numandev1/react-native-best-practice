@@ -1,7 +1,7 @@
 {
-  "name": "react-native-best-practices",
+  "name": "react-native-best-pactices",
   "version": "0.1.0",
-  "description": "best practices of react native",
+  "description": "best pactices of react native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/src/index.d.ts",
@@ -26,7 +26,7 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace react-native-best-practices-example",
+    "example": "yarn workspace react-native-best-pactices-example",
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
@@ -39,13 +39,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/numandev1/react-native-best-practices",
+  "repository": "https://github.com/numandev1/react-native-best-pactices",
   "author": "Muhammad Numan <muhammadnuman70@gmail.com> (https://github.com/numandev1)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/numandev1/react-native-best-practices/issues"
+    "url": "https://github.com/numandev1/react-native-best-pactices/issues"
   },
-  "homepage": "https://github.com/numandev1/react-native-best-practices#readme",
+  "homepage": "https://github.com/numandev1/react-native-best-pactices#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
