@@ -6,8 +6,8 @@
 
 <div align="center">
 
-[![GitHub Repo stars](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](#Installation)
-[![GitHub Repo stars](https://img.shields.io/badge/Expo-1B1F23?style=for-the-badge&logo=expo&logoColor=white)](#managed-expo)
+[![GitHub Repo stars](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](#installation)
+[![GitHub Repo stars](https://img.shields.io/badge/Expo-1B1F23?style=for-the-badge&logo=expo&logoColor=white)](#installation)
 [![GitHub Repo stars](https://img.shields.io/static/v1?style=for-the-badge&message=Discord&color=5865F2&logo=Discord&logoColor=FFFFFF&label=)](https://discord.gg/5XCGcTTazY)
 [![GitHub Repo stars](https://img.shields.io/github/stars/numandev1/react-native-best-practice?style=for-the-badge&logo=github)](https://github.com/numandev1/react-native-best-practice/stargazers)
 ![npm](https://img.shields.io/npm/dt/react-native-best-practice?style=for-the-badge)
@@ -25,20 +25,39 @@
   - [React](#react)
   - [Examples](#examples)
   - [react-native-performance](#react-native-performance)
-  - [Disclaimer](#react-native-performance)
-  - [Conclusion](#conclusion)
+  - [Disclaimer](#disclaimer)
+  - [react-native-best-practices hooks and utils](#best-practices-hooks-and-utils)
+    - [Installation](#installation)
+    - [Usage](#usage)
+    - [Hooks list](#hooks-list)
+    - [Util](#util)
+- [Pro Tips](#pro-tips)
+  - [Monitor RAM, JS framerate, and UI framerate](#monitor-ram-js-framerate-and-ui-framerate)
+  - [Custom Logger](#custom-logger)
+  - [State Management](#state-management)
+  - [Ref](#ref)
+  - [Native Stack](#native-stack)
+  - [Buffer](#buffer)
+  - [Storage (MMKV)](#storage-mmkv)
+  - [Image/Video Placeholders](#imagevideo-placeholders)
+  - [$ Currencies Handle](#currencies-handle)
+  - [Safearea insets](#safearea-insets)
+  - [C++ Book](#c-book)
+  - [Custom Text Component](#custom-text-component)
+  - [Big Number](#big-number)
+  - [Crypto](#crypto)
 
 # Why-Did-You-Render (avoid extra rerendering)
 
 you should use [why-did-you-render](https://github.com/welldone-software/why-did-you-render) which notify you about potentially avoidable re-renders.
 
 ```ts
-import React from 'react';
+import React from "react";
 
 const useWDYR = __DEV__;
 
 if (useWDYR) {
-  const whyDidYouRender = require('@welldone-software/why-did-you-render');
+  const whyDidYouRender = require("@welldone-software/why-did-you-render");
   whyDidYouRender(React, {
     // Enable tracking in all pure components by default
     trackAllPureComponents: true,
@@ -103,7 +122,7 @@ const equal = o1 === o2; // false
 
 Reference comparisons simply compare the memory address of the variable, so only `o1 === o1` would be `true` in the above code example.
 
-> There are libraries like [deep-equal](https://github.com/inspect-js/node-deep-equal) to compare objects by actual equality, but that's not _shallow equality_ anymore.
+> 'isEqual`from`react-native-best-practices` to compare objects by actual equality, but that's not _shallow equality_ anymore.
 
 ### React
 
@@ -111,6 +130,7 @@ If you create objects in your render function, they will be re-created on every 
 
 - Use the `useMemo` hook to memoize arrays and objects which will keep their reference equality (and won't get re-created on each render) as long as the dependencies (second argument) stay the same. Also use `useMemo` to cache heavy computations, such as array operations, filtering, etc.
 - Use the `useCallback` hook to memoize a function.
+- If you are re creating objective but can have same values then you can use `useDeepEffect`, `useDeepCallback`, `useDeepImperativeHandle` and `useDeepLayoutEffect` from `import {useDeepEffect, ...} from 'react-native-best-practices'`
 
 In general, function components can be optimized more easily due to the concept of [hooks](https://reactjs.org/docs/hooks-overview.html). You can however apply similar techniques for class components, just be aware that this will result in a lot more code.
 
@@ -129,13 +149,13 @@ Here are a few examples to help you avoid doing too much work on your JavaScript
 ### Bad
 
 ```jsx
-return <View style={[styles.container, { backgroundColor: 'red' }]} />;
+return <View style={[styles.container, { backgroundColor: "red" }]} />;
 ```
 
 ### Good
 
 ```jsx
-const style = useMemo(() => [styles.container, { backgroundColor: 'red' }], []);
+const style = useMemo(() => [styles.container, { backgroundColor: "red" }], []);
 return <View style={style} />;
 ```
 
@@ -151,7 +171,7 @@ Using `filter`, `map` or other array operations in renderers will run the entire
 
 ```jsx
 return (
-  <Text>{users.filter((u) => u.status === 'online').length} users online</Text>
+  <Text>{users.filter((u) => u.status === "online").length} users online</Text>
 );
 ```
 
@@ -159,7 +179,7 @@ return (
 
 ```jsx
 const onlineCount = useMemo(
-  () => users.filter((u) => u.status === 'online').length,
+  () => users.filter((u) => u.status === "online").length,
   [users]
 );
 return <Text>{onlineCount} users online</Text>;
@@ -275,7 +295,7 @@ When writing new components I always put a log statement in my render function t
 ```jsx
 function ComponentImWorkingOn() {
   // code
-  console.log('re-rendering ComponentImWorkingOn!');
+  console.log("re-rendering ComponentImWorkingOn!");
   return <View />;
 }
 ```
@@ -308,11 +328,140 @@ If your component renders the same result given the same props, you can wrap it 
 
 If your app feels slow, try the [react-native-performance](https://github.com/oblador/react-native-performance) library and it's flipper plugin to profile your app's performance in various aspects such as _time to interactive_, _component render time_, _script execution_ and more.
 
-# Disclaimer
+## Disclaimer
 
 Don't prematurely optimize. Some examples used here (e.g. the `useMemo` one) are very small and only demonstrate the idea. A hook like `useMemo also comes with a cost (allocating the function and the deps array, calling the actual hook and running an array comparison), so keep in mind that it is often better to just pass in objects or arrays directly if the component itself is optimized. After a certain component complexity or with a certain dependency graph, memoizing functions can be a huge performance win, but there are also cases where it just leads to unnecessarily complex code and sometimes even worse performance.
 Always benchmark before and after!
 
-# Conclusion
+## best-practices hooks and utils
 
-<h4 align="center">memoize!!</h5>
+### Installation
+
+```
+npm i react-native-best-practice
+```
+
+### Usage
+
+All passing arguments as in native [`React Hooks`](https://reactjs.org/docs/hooks-intro.html)
+like
+
+```
+import {useDeepEffect} from 'react-native-best-practices'
+
+useDeepEffect(()=>{
+
+},[recreatedDeepObject])
+```
+
+#### Hooks list
+
+- `useDeepEffect` => `useEffect`
+- `useDeepMemo` => `useMemo`
+- `useDeepCallback` => `useCallback`
+- `useDeepImperativeHandle` => `useImperativeHandle`
+- `useDeepLayoutEffect` => `useLayoutEffect`
+
+### Util
+
+- `isEqual` => will check isEqual deeply
+- `cloneDeep` => will clone object and array deeply
+
+# Pro tips
+
+## Monitor RAM, JS framerate, and UI framerate
+
+Always turn on Pref monitor while developing the app as it will tell you UI framerate and JS framerate, if any frame drops then you can check which new code is causing for dropping frame and making your Time To Interactive (TTI) low, you can open up the `Dev Menu` in your app and toggle `Show Perf Monitor`.
+<img src="/media/pref-monitor.png" />
+
+## Custom Logger
+
+Create a custom Logger instance and enforce emojis to categorize logs. This way it's easier to spot relevant lines in your console, and looks more friendly overall.
+Do lots of logging to save yourself from long nights of debugging at a later point!
+<img src="/media/logger.png" />
+
+## Native Stack
+
+Always use the native-stack from [@reactnavigation](https://github.com/react-navigation/react-navigation)
+. Since it uses platform-native screen primitives, it is almost always worth the performance gains over the JS-based stack.
+<img src="/media/nativestack.jpeg" />
+
+## State Management
+
+- **Redux**
+  if you are already using redux then you should use [reselect](https://github.com/reduxjs/reselect) for memoized "selector" functions
+
+- **React Context**
+  if you are already using [react context](https://react.dev/reference/react/createContext) then you should use [use-context-selector](https://github.com/dai-shi/use-context-selector) for memoized "selector" functions otherwise a context value is changed, all components that useContext will re-render.
+
+recommended to use these libs [Recoil](https://recoiljs.org/), [Jotai](https://jotai.org/) [Zustand](https://github.com/pmndrs/zustand) for state management
+
+## Ref
+
+if you need to do something in child component from parent component, use [ref](https://react.dev/learn/manipulating-the-dom-with-refs) and [useImperativeHandle](https://react.dev/reference/react/useImperativeHandle) for calling child components functions from parent component instead of playing with state passing into child component
+
+## Buffer
+
+Use the [react-native-buffer](https://github.com/craftzdog/react-native-buffer) fork from [@craftzdog](https://github.com/craftzdog), when dealing with lots of Buffers to speed up your app. It uses C++ backed implementations exposed through JSI, which is roughly 4x faster than the JS-based implementation.
+<img src="/media/buffer.jpeg" />
+
+## Storage (MMKV)
+
+Use [react-native-mmkv](https://github.com/mrousavy/react-native-mmkv) to synchronously store and retrieve data from local storage, which persists even on the next app launch.
+Compared to localStorage on Web, MMKV also allows you to encrypt your data and have multiple instances!
+<img src="/media/mmkv.jpeg" />
+
+## Image/Video Placeholders
+
+Use [react-native-blurhash](https://github.com/mrousavy/react-native-blurhash) to show beautiful blurry placeholders for your images and videos.
+Generate a short string that represents a blurry version of your content ("blurhash") server-side and send it alongside with your data to the app!
+<img src="/media/blurhash.jpeg" height="450" />
+
+## Currencies Handle
+
+When presenting numbers to the user, you should format them in the correct locale (commas, currency signs, ..)
+While .toLocaleString(..) does it's job, you can actually construct your own NumberFormat instance to improve performance by ~2x!
+<img src="/media/currency-format.jpeg"  />
+
+## Safearea insets
+
+Always handle Safe Area Insets appropriately. Instead of wrapping the entire screen in a <SafeAreaView>, you can work with paddings to create cleaner UIs.
+
+Here, we passed `contentContainerStyle={{ paddingBottom: safeAreaBottom }}` to the <ScrollView>:
+<video src='/media/safearea.mp4' />
+
+## C++ Book
+
+Read ["Effective Modern C++"](/media/Effective_Modern_CPP.pdf).
+Even if you're not a C++ developer, this book will help you understand how memory management works and believe it or not this affects how you think about React (Native).
+In fact that's the only programming book I ever read
+
+you'll understand why {} === {} is false, how identity equality works, how re-renders are tons of allocations, how to avoid copies, and lots of other stuff about performance that just makes you think a little bit different when writing code.
+Just don't prematurely optimize 😄
+
+And if you want to go into C++ development with JSI, it's even better that you read this book - C++ is not as forgiving as JS.
+If you make a library that has bad C++ code in it, users will hate you for making their app SIGABRT 😄
+
+## Custom Text Component
+
+Never use the <Text> component directly.
+Instead, create your own abstraction so you don't repeat yourself with font name, font size or colors each time and it's easier to change properties at any point.
+<img src="/media/text.png" />
+Additionally, create an ESLint rule to warn you every time you're trying to use <Text> instead of <PandaText> ⭐️
+<img src="/media/textEslintRule.png" />
+
+## Big Number
+
+When dealing with large numbers, use [react-native-bignumber](https://github.com/margelo/react-native-bignumber/) instead of any of the JS-based libraries. ⚡️
+It is backed by a pure C++ implementation and is ~330x faster than BN.js in certain applications (e.g. #crypto apps, ethers.js, elliptic, bitcoin)
+<img src="/media/bigNumber.png" />
+
+## Crypto
+
+When working with #crypto / cryptography, use react-native-quick-crypto instead of any of the JS-based libraries. ⚡️
+It is backed by a pure C++ implementation and is up to 58x faster than [react-native-crypto](https://github.com/margelo/react-native-quick-crypto) or crypto-browserify in certain scenarios.
+
+# Credits
+
+Thanks to [Marc Rousavy](https://github.com/mrousavy) and [
+Margelo](https://github.com/margelo) as mostly best practices are their
