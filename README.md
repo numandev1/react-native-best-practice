@@ -47,18 +47,20 @@
   - [Custom Text Component](#custom-text-component)
   - [Big Number](#big-number)
   - [Crypto](#crypto)
+  - [Do Measure Performance and Profiling](#do-measure-performance-and-profiling)
+  - [Remove Console.log from production app](#remove-consolelog-from-production-app)
 
 # Why-Did-You-Render (avoid extra rerendering)
 
 you should use [why-did-you-render](https://github.com/welldone-software/why-did-you-render) which notify you about potentially avoidable re-renders.
 
 ```ts
-import React from "react";
+import React from 'react';
 
 const useWDYR = __DEV__;
 
 if (useWDYR) {
-  const whyDidYouRender = require("@welldone-software/why-did-you-render");
+  const whyDidYouRender = require('@welldone-software/why-did-you-render');
   whyDidYouRender(React, {
     // Enable tracking in all pure components by default
     trackAllPureComponents: true,
@@ -150,13 +152,13 @@ Here are a few examples to help you avoid doing too much work on your JavaScript
 ### Bad
 
 ```jsx
-return <View style={[styles.container, { backgroundColor: "red" }]} />;
+return <View style={[styles.container, { backgroundColor: 'red' }]} />;
 ```
 
 ### Good
 
 ```jsx
-const style = useMemo(() => [styles.container, { backgroundColor: "red" }], []);
+const style = useMemo(() => [styles.container, { backgroundColor: 'red' }], []);
 return <View style={style} />;
 ```
 
@@ -172,7 +174,7 @@ Using `filter`, `map` or other array operations in renderers will run the entire
 
 ```jsx
 return (
-  <Text>{users.filter((u) => u.status === "online").length} users online</Text>
+  <Text>{users.filter((u) => u.status === 'online').length} users online</Text>
 );
 ```
 
@@ -180,7 +182,7 @@ return (
 
 ```jsx
 const onlineCount = useMemo(
-  () => users.filter((u) => u.status === "online").length,
+  () => users.filter((u) => u.status === 'online').length,
   [users]
 );
 return <Text>{onlineCount} users online</Text>;
@@ -296,7 +298,7 @@ When writing new components I always put a log statement in my render function t
 ```jsx
 function ComponentImWorkingOn() {
   // code
-  console.log("re-rendering ComponentImWorkingOn!");
+  console.log('re-rendering ComponentImWorkingOn!');
   return <View />;
 }
 ```
@@ -378,7 +380,8 @@ Always turn on Pref monitor while developing the app as it will tell you UI fram
 ## Use Flashlist for listing
 
 never use flatlist, always use [flashlist](https://shopify.github.io/flash-list/) as it uses the concept of recycling views, which only create and render a limited number of views that are visible on the screen
-<video src='https://shopify.github.io/flash-list/img/scroll.mp4' height="300" />
+
+https://github.com/numandev1/react-native-best-practice/assets/36044436/e20bbe5c-da08-4242-a89c-94a31635ac65
 
 ## Custom Logger
 
@@ -434,7 +437,8 @@ While .toLocaleString(..) does it's job, you can actually construct your own Num
 Always handle Safe Area Insets appropriately. Instead of wrapping the entire screen in a <SafeAreaView>, you can work with paddings to create cleaner UIs.
 
 Here, we passed `contentContainerStyle={{ paddingBottom: safeAreaBottom }}` to the <ScrollView>:
-<video src='/media/safearea.mp4' />
+
+https://github.com/numandev1/react-native-best-practice/assets/36044436/d9e3acef-26a4-43be-b735-e814006532ed
 
 ## C++ Book
 
@@ -466,6 +470,16 @@ It is backed by a pure C++ implementation and is ~330x faster than BN.js in cert
 
 When working with #crypto / cryptography, use react-native-quick-crypto instead of any of the JS-based libraries. ⚡️
 It is backed by a pure C++ implementation and is up to 58x faster than [react-native-crypto](https://github.com/margelo/react-native-quick-crypto) or crypto-browserify in certain scenarios.
+
+## Do Measure Performance and Profiling
+
+you can use [FLASHLIGHT](https://docs.flashlight.dev/) for generateing a performance score for your Android app
+
+you can do [Profiling](https://www.callstack.com/blog/profiling-react-native-apps-with-ios-and-android-tools) for performance optimization.
+
+## Remove Console.log from production app
+
+You should remove `console.log` from prod app as using `console.log `statements lowers the FPS, you can remove console.log by reading [this](https://stackoverflow.com/a/69029849/8079868)
 
 # Credits
 
