@@ -2,14 +2,18 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "react-native-best-pactices": ["./src/index"]
+      "react-native-best-pactice": [
+        "./src/index"
+      ]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
-    "lib": ["esnext"],
+    "lib": [
+      "esnext"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,

@@ -14692,9 +14692,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"react-native-best-pactices-example@workspace:example":
+"react-native-best-pactice-example@workspace:example":
   version: 0.0.0-use.local
-  resolution: "react-native-best-pactices-example@workspace:example"
+  resolution: "react-native-best-pactice-example@workspace:example"
   dependencies:
     "@babel/core": ^7.20.0
     "@expo/webpack-config": ^18.0.1

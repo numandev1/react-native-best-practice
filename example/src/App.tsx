@@ -1,14 +1,16 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-best-pactices';
+import { useDeepEffect } from 'react-native-best-pactice';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
+  const [result] = React.useState({
+    name: 'test',
+  });
 
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
+  useDeepEffect(() => {
+    console.log('result changed');
+  }, [result]);
 
   return (
     <View style={styles.container}>
@@ -22,10 +24,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
   },
 });
