@@ -1,6 +1,6 @@
 {
   "name": "react-native-best-practice",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "best pactices of react native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
