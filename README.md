@@ -33,6 +33,7 @@
     - [Util](#util)
 - [Pro Tips](#pro-tips)
   - [Monitor RAM, JS framerate, and UI framerate](#monitor-ram-js-framerate-and-ui-framerate)
+  - [Use Flashlist for listing](#monitor-ram-js-framerate-and-ui-framerate)
   - [Custom Logger](#custom-logger)
   - [State Management](#state-management)
   - [Ref](#ref)
@@ -373,6 +374,11 @@ useDeepEffect(()=>{
 
 Always turn on Pref monitor while developing the app as it will tell you UI framerate and JS framerate, if any frame drops then you can check which new code is causing for dropping frame and making your Time To Interactive (TTI) low, you can open up the `Dev Menu` in your app and toggle `Show Perf Monitor`.
 <img src="/media/pref-monitor.png" />
+
+## Use Flashlist for listing
+
+never use flatlist, always use [flashlist](https://shopify.github.io/flash-list/) as it uses the concept of recycling views, which only create and render a limited number of views that are visible on the screen
+<video src='https://shopify.github.io/flash-list/img/scroll.mp4' height="300" />
 
 ## Custom Logger
 

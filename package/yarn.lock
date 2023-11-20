@@ -14663,26 +14663,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-best-pactices-example@workspace:example":
+"react-native-best-pactice@workspace:.":
   version: 0.0.0-use.local
-  resolution: "react-native-best-pactices-example@workspace:example"
-  dependencies:
-    "@babel/core": ^7.20.0
-    "@expo/webpack-config": ^18.0.1
-    babel-loader: ^8.1.0
-    babel-plugin-module-resolver: ^5.0.0
-    expo: ~49.0.15
-    expo-status-bar: ~1.6.0
-    react: 18.2.0
-    react-dom: 18.2.0
-    react-native: 0.72.6
-    react-native-web: ~0.19.6
-  languageName: unknown
-  linkType: soft
-
-"react-native-best-pactices@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "react-native-best-pactices@workspace:."
+  resolution: "react-native-best-pactice@workspace:."
   dependencies:
     "@commitlint/config-conventional": ^17.0.2
     "@evilmartians/lefthook": ^1.5.0
@@ -14706,6 +14689,23 @@ __metadata:
   peerDependencies:
     react: "*"
     react-native: "*"
+  languageName: unknown
+  linkType: soft
+
+"react-native-best-pactices-example@workspace:example":
+  version: 0.0.0-use.local
+  resolution: "react-native-best-pactices-example@workspace:example"
+  dependencies:
+    "@babel/core": ^7.20.0
+    "@expo/webpack-config": ^18.0.1
+    babel-loader: ^8.1.0
+    babel-plugin-module-resolver: ^5.0.0
+    expo: ~49.0.15
+    expo-status-bar: ~1.6.0
+    react: 18.2.0
+    react-dom: 18.2.0
+    react-native: 0.72.6
+    react-native-web: ~0.19.6
   languageName: unknown
   linkType: soft
 
