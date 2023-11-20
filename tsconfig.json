@@ -2,7 +2,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "react-native-best-pactice": [
+      "react-native-best-practice": [
         "./src/index"
       ]
     },

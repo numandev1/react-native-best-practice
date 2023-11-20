@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import { useDeepEffect } from 'react-native-best-pactice';
+import { useDeepEffect } from 'react-native-best-practice';
 
 export default function App() {
   const [result] = React.useState({
