@@ -26,7 +26,7 @@
   - [Examples](#examples)
   - [react-native-performance](#react-native-performance)
   - [Disclaimer](#disclaimer)
-  - [react-native-best-practices hooks and utils](#best-practices-hooks-and-utils)
+  - [react-native-best-practice hooks and utils](#best-practices-hooks-and-utils)
     - [Installation](#installation)
     - [Usage](#usage)
     - [Hooks list](#hooks-list)
@@ -125,7 +125,7 @@ const equal = o1 === o2; // false
 
 Reference comparisons simply compare the memory address of the variable, so only `o1 === o1` would be `true` in the above code example.
 
-> 'isEqual`from`react-native-best-practices` to compare objects by actual equality, but that's not _shallow equality_ anymore.
+> 'isEqual`from`react-native-best-practice` to compare objects by actual equality, but that's not _shallow equality_ anymore.
 
 ### React
 
@@ -133,7 +133,7 @@ If you create objects in your render function, they will be re-created on every 
 
 - Use the `useMemo` hook to memoize arrays and objects which will keep their reference equality (and won't get re-created on each render) as long as the dependencies (second argument) stay the same. Also use `useMemo` to cache heavy computations, such as array operations, filtering, etc.
 - Use the `useCallback` hook to memoize a function.
-- If you are re creating objective but can have same values then you can use `useDeepEffect`, `useDeepCallback`, `useDeepImperativeHandle` and `useDeepLayoutEffect` from `import {useDeepEffect, ...} from 'react-native-best-practices'`
+- If you are re creating objective but can have same values then you can use `useDeepEffect`, `useDeepCallback`, `useDeepImperativeHandle` and `useDeepLayoutEffect` from `import {useDeepEffect, ...} from 'react-native-best-practice'`
 
 In general, function components can be optimized more easily due to the concept of [hooks](https://reactjs.org/docs/hooks-overview.html). You can however apply similar techniques for class components, just be aware that this will result in a lot more code.
 
@@ -350,7 +350,7 @@ All passing arguments as in native [`React Hooks`](https://reactjs.org/docs/hook
 like
 
 ```
-import {useDeepEffect} from 'react-native-best-practices'
+import {useDeepEffect} from 'react-native-best-practice'
 
 useDeepEffect(()=>{
 
